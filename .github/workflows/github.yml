@@ -1,13 +1,13 @@
 on:
   push:
-    branches: [staging]
+    branches: [staging, main]
 
 jobs:
   print-and-deploy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        stage: [staging]
+        stage: [staging, production]
     environment:
       name: ${{ matrix.stage }}
     steps:
@@ -17,7 +17,8 @@ jobs:
           bun-version: latest
       - name: Deploy
         if: |
-          github.ref == 'refs/heads/staging' && github.event_name == 'push'
+          ${{ github.ref }} == 'refs/heads/staging' && ${{ matrix.stage }} == 'staging' ||
+          ${{ github.ref }} == 'refs/heads/main' && ${{ matrix.stage }} == 'production'
         run: |
           npm i -g @railway/cli
           echo "NODE_ENV=${{ env.NODE_ENV }}"
