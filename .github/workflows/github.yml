@@ -3,21 +3,23 @@ on:
     branches: [main, staging]
 
 jobs:
-  show-secrets:
+  print-and-deploy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         environment: [staging, production]
     steps:
-      - name: Show secrets
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      - name: Print and Deploy
         run: |
-          echo "Environment: ${{ matrix.environment }}"
-          echo ${{ env.REPOSITORY_SECRET }}
-          echo ${{ env.REPOSITORY_VARIABLE }}
-          echo ${{ env.ENVIRONMENT_SECRET }}
-          echo ${{ env.ENVIRONMENT_VARIABLE }}
+          bun i -g @railway/cli
+          railway up
         env:
           REPOSITORY_SECRET: ${{ secrets.REPOSITORY_SECRET }}
           REPOSITORY_VARIABLE: ${{ env.REPOSITORY_VARIABLE }}
           ENVIRONMENT_SECRET: ${{ github.env.ENVIRONMENT_SECRET }}
           ENVIRONMENT_VARIABLE: ${{ github.env.ENVIRONMENT_VARIABLE }}
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
