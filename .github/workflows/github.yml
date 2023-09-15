@@ -5,9 +5,10 @@ on:
 jobs:
   print-and-deploy:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        environment: [staging]
+    environment: staging
+    # strategy:
+    #   matrix:
+    #     environment: [staging]
     steps:
       - uses: oven-sh/setup-bun@v1
         with:
@@ -16,7 +17,7 @@ jobs:
         run: bun i -g @railway/cli
       - name: Deploy
         run: |
-          echo "NODE_ENV=${{ matrix.environment }}"
+          echo "NODE_ENV=${{ env.NODE_ENV }}"
           echo "GITHUB_TOKEN=${{ env.GITHUB_TOKEN }}"
           echo "REPOSITORY_SECRET=${{ env.REPOSITORY_SECRET }}"
           echo "REPOSITORY_VARIABLE=${{ env.REPOSITORY_VARIABLE }}"
@@ -26,12 +27,12 @@ jobs:
           echo ${{ github.env }} > .env
           railway up -e ${{ env.NODE_ENV }}
         env:
-          NODE_ENV: ${{ matrix.environment }}
+          NODE_ENV: staging
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPOSITORY_SECRET: ${{ secrets.REPOSITORY_SECRET }}
-          REPOSITORY_VARIABLE: ${{ env.REPOSITORY_VARIABLE }}
-          ENVIRONMENT_SECRET: ${{ github.env.ENVIRONMENT_SECRET }}
-          ENVIRONMENT_VARIABLE: ${{ github.env.ENVIRONMENT_VARIABLE }}
+          REPOSITORY_VARIABLE: ${{ vars.REPOSITORY_VARIABLE }}
+          ENVIRONMENT_SECRET: ${{ env.ENVIRONMENT_SECRET }}
+          ENVIRONMENT_VARIABLE: ${{ vars.ENVIRONMENT_VARIABLE }}
           RAILWAY_TOKEN: ${{ env.RAILWAY_TOKEN }}
         #   RAILWAY_TOKEN: ${{ github.env.secrets.RAILWAY_TOKEN}}
         #   RAILWAY_TOKEN: ${{ github.env.RAILWAY_TOKEN }}
