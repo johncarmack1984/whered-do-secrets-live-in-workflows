@@ -11,7 +11,13 @@ jobs:
     steps:
       - name: Show secrets
         run: |
-          echo ${{ secrets.REPOSITORY_SECRET }}
-          echo ${{ github.repository.REPOSITORY_VARIABLE }}
-          echo ${{ github.env.ENVIRONMENT_SECRET }}
-          echo ${{ github.env.ENVIRONMENT_VARIABLE }}
+          echo "Environment: ${{ matrix.environment }}"
+          echo ${{ env.REPOSITORY_SECRET }}
+          echo ${{ env.REPOSITORY_VARIABLE }}
+          echo ${{ env.ENVIRONMENT_SECRET }}
+          echo ${{ env.ENVIRONMENT_VARIABLE }}
+        env:
+          REPOSITORY_SECRET: ${{ secrets.REPOSITORY_SECRET }}
+          REPOSITORY_VARIABLE: ${{ env.REPOSITORY_VARIABLE }}
+          ENVIRONMENT_SECRET: ${{ github.env.ENVIRONMENT_SECRET }}
+          ENVIRONMENT_VARIABLE: ${{ github.env.ENVIRONMENT_VARIABLE }}
