@@ -1,3 +1,8 @@
+console.log(`REPOSITORY_SECRET: ${process.env.REPOSITORY_SECRET}\n`);
+console.log(`REPOSITORY_VARIABLE: ${process.env.REPOSITORY_VARIABLE}\n`);
+console.log(`ENVIRONMENT_SECRET: ${process.env.ENVIRONMENT_SECRET}\n`);
+console.log(`ENVIRONMENT_VARIABLE: ${process.env.ENVIRONMENT_VARIABLE}\n`);
+
 Bun.serve({
   fetch(req) {
     return new Response(`
