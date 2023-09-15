@@ -4,7 +4,7 @@ console.log(`ENVIRONMENT_SECRET: ${process.env.ENVIRONMENT_SECRET}\n`);
 console.log(`ENVIRONMENT_VARIABLE: ${process.env.ENVIRONMENT_VARIABLE}\n`);
 
 Bun.serve({
-  fetch(req) {
+  async fetch(req) {
     return new Response(`
         Hello via Bun!\n
         This is a line break!\n
