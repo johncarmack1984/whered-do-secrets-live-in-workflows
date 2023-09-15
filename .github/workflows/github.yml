@@ -12,10 +12,10 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - name: Print and Deploy
-        run: |
-          bun i -g @railway/cli
-          railway up
+      - name: Install Railway
+        run: bun i -g @railway/cli
+      - name: Deploy
+        run: railway up
         env:
           REPOSITORY_SECRET: ${{ secrets.REPOSITORY_SECRET }}
           REPOSITORY_VARIABLE: ${{ env.REPOSITORY_VARIABLE }}
