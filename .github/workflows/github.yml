@@ -8,6 +8,7 @@ jobs:
     strategy:
       matrix:
         environment: [staging, production]
+        token: [RAILWAY_TOKEN]
     steps:
       - uses: actions/checkout@v3
       - uses: oven-sh/setup-bun@v1
@@ -28,10 +29,10 @@ jobs:
           cat .env
           railway up -e ${{ env.NODE_ENV }}
         env:
-          NODE_ENV: staging
+          NODE_ENV: ${{ matrix.environment }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPOSITORY_VARIABLE: ${{ vars.REPOSITORY_VARIABLE }}
           REPOSITORY_SECRET: ${{ secrets.REPOSITORY_SECRET }}
-          ENVIRONMENT_VARIABLE: ${{ matrix.environment.vars.ENVIRONMENT_VARIABLE }}
-          ENVIRONMENT_SECRET: ${{ matrix.environment.secrets.ENVIRONMENT_SECRET }}
-          RAILWAY_TOKEN: ${{ matrix.environment.secrets.RAILWAY_TOKEN }}
+          ENVIRONMENT_VARIABLE: ${{ vars.ENVIRONMENT_VARIABLE }}
+          ENVIRONMENT_SECRET: ${{ secrets.ENVIRONMENT_SECRET }}
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
