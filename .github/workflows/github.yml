@@ -22,4 +22,4 @@ jobs:
           REPOSITORY_VARIABLE: ${{ env.REPOSITORY_VARIABLE }}
           ENVIRONMENT_SECRET: ${{ github.env.ENVIRONMENT_SECRET }}
           ENVIRONMENT_VARIABLE: ${{ github.env.ENVIRONMENT_VARIABLE }}
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+          RAILWAY_TOKEN: ${{ github.env.RAILWAY_TOKEN }}
