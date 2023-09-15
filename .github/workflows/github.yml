@@ -33,7 +33,7 @@ jobs:
           REPOSITORY_SECRET: ${{ secrets.REPOSITORY_SECRET }}
           ENVIRONMENT_VARIABLE: ${{ vars.ENVIRONMENT_VARIABLE }}
           ENVIRONMENT_SECRET: ${{ secrets.ENVIRONMENT_SECRET }}
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         #   RAILWAY_TOKEN: ${{ vars.RAILWAY_TOKEN }}
         #   RAILWAY_TOKEN: ${{ github.env.secrets.RAILWAY_TOKEN}}
         #   RAILWAY_TOKEN: ${{ github.env.RAILWAY_TOKEN }}
-        #   RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
