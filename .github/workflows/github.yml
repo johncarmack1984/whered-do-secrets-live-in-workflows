@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        stage: [staging, production]
+        stage: [staging]
     environment:
       name: ${{ matrix.stage }}
     steps:
