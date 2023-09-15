@@ -16,6 +16,8 @@ jobs:
         with:
           bun-version: latest
       - name: Deploy
+        if: |
+          github.ref == 'refs/heads/staging' && github.event_name == 'push'
         run: |
           npm i -g @railway/cli
           echo "NODE_ENV=${{ env.NODE_ENV }}"
