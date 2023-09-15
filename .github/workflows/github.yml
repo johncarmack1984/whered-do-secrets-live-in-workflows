@@ -6,9 +6,9 @@ jobs:
   print-and-deploy:
     runs-on: ubuntu-latest
     environment: staging
-    # strategy:
-    #   matrix:
-    #     environment: [staging]
+    strategy:
+      matrix:
+        environment: [staging, production]
     steps:
       - uses: actions/checkout@v3
       - uses: oven-sh/setup-bun@v1
@@ -17,18 +17,17 @@ jobs:
       - name: Deploy
         run: |
           npm i -g @railway/cli
-          echo ${{ github.env }} > .env
+          echo "NODE_ENV=${{ env.NODE_ENV }}"
+          echo "GITHUB_TOKEN=${{ env.GITHUB_TOKEN }}"
+          echo "REPOSITORY_VARIABLE=${{ env.REPOSITORY_VARIABLE }}"
+          echo "REPOSITORY_SECRET=${{ env.REPOSITORY_SECRET }}"
+          echo "ENVIRONMENT_VARIABLE=${{ env.ENVIRONMENT_VARIABLE }}"
+          echo "ENVIRONMENT_SECRET=${{ env.ENVIRONMENT_SECRET }}"
+          echo "RAILWAY_TOKEN=${{ env.RAILWAY_TOKEN }}"
           pwd
           ls -al
           cat .env
           railway up -e ${{ env.NODE_ENV }}
-        #   echo "NODE_ENV=${{ env.NODE_ENV }}"
-        #   echo "GITHUB_TOKEN=${{ env.GITHUB_TOKEN }}"
-        #   echo "REPOSITORY_VARIABLE=${{ env.REPOSITORY_VARIABLE }}"
-        #   echo "REPOSITORY_SECRET=${{ env.REPOSITORY_SECRET }}"
-        #   echo "ENVIRONMENT_VARIABLE=${{ env.ENVIRONMENT_VARIABLE }}"
-        #   echo "ENVIRONMENT_SECRET=${{ env.ENVIRONMENT_SECRET }}"
-        #   echo "RAILWAY_TOKEN=${{ env.RAILWAY_TOKEN }}"
         env:
           NODE_ENV: staging
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -37,6 +36,3 @@ jobs:
           ENVIRONMENT_VARIABLE: ${{ vars.ENVIRONMENT_VARIABLE }}
           ENVIRONMENT_SECRET: ${{ secrets.ENVIRONMENT_SECRET }}
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        #   RAILWAY_TOKEN: ${{ vars.RAILWAY_TOKEN }}
-        #   RAILWAY_TOKEN: ${{ github.env.secrets.RAILWAY_TOKEN}}
-        #   RAILWAY_TOKEN: ${{ github.env.RAILWAY_TOKEN }}
