@@ -15,11 +15,11 @@ jobs:
       - name: Install Railway
         run: bun i -g @railway/cli
       - name: Deploy
-        run: railway up
+        run: railway up -e ${{ matrix.environment }}
         env:
           REPOSITORY_SECRET: ${{ secrets.REPOSITORY_SECRET }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPOSITORY_VARIABLE: ${{ env.REPOSITORY_VARIABLE }}
           ENVIRONMENT_SECRET: ${{ github.env.ENVIRONMENT_SECRET }}
           ENVIRONMENT_VARIABLE: ${{ github.env.ENVIRONMENT_VARIABLE }}
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
