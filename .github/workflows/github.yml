@@ -29,11 +29,11 @@ jobs:
         env:
           NODE_ENV: staging
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPOSITORY_SECRET: ${{ secrets.REPOSITORY_SECRET }}
           REPOSITORY_VARIABLE: ${{ vars.REPOSITORY_VARIABLE }}
-          ENVIRONMENT_SECRET: ${{ env.ENVIRONMENT_SECRET }}
+          REPOSITORY_SECRET: ${{ secrets.REPOSITORY_SECRET }}
           ENVIRONMENT_VARIABLE: ${{ vars.ENVIRONMENT_VARIABLE }}
-          RAILWAY_TOKEN: ${{ env.RAILWAY_TOKEN }}
+          RAILWAY_TOKEN: ${{ vars.RAILWAY_TOKEN }}
+        #   ENVIRONMENT_SECRET: ${{ env.secrets.ENVIRONMENT_SECRET }}
         #   RAILWAY_TOKEN: ${{ github.env.secrets.RAILWAY_TOKEN}}
         #   RAILWAY_TOKEN: ${{ github.env.RAILWAY_TOKEN }}
         #   RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
