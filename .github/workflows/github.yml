@@ -17,6 +17,7 @@ jobs:
         run: |
           npm i -g @railway/cli
           echo ${{ github.env }} > .env
+          pwd
           ls -al
           cat .env
           railway up -e ${{ env.NODE_ENV }}
