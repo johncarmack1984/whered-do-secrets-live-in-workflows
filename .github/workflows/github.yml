@@ -15,15 +15,24 @@ jobs:
       - name: Install Railway
         run: bun i -g @railway/cli
       - name: Deploy
-        run: railway up -e ${{ matrix.environment }}
+        run: |
+          echo "NODE_ENV=${{ matrix.environment }}"
+          echo "GITHUB_TOKEN=${{ env.GITHUB_TOKEN }}"
+          echo "REPOSITORY_SECRET=${{ env.REPOSITORY_SECRET }}"
+          echo "REPOSITORY_VARIABLE=${{ env.REPOSITORY_VARIABLE }}"
+          echo "ENVIRONMENT_SECRET=${{ env.ENVIRONMENT_SECRET }}"
+          echo "ENVIRONMENT_VARIABLE=${{ env.ENVIRONMENT_VARIABLE }}"
+          echo "RAILWAY_TOKEN=${{ env.RAILWAY_TOKEN }}"
+          echo ${{ github.env }} > .env
+          railway up -e ${{ env.NODE_ENV }}
         env:
-          github_env: ${{ matrix.environment }}
-          REPOSITORY_SECRET: ${{ secrets.REPOSITORY_SECRET }}
+          NODE_ENV: ${{ matrix.environment }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RAILWAY_TOKEN: ${{ github.env.secrets.RAILWAY_TOKEN}}
-        #   RAILWAY_TOKEN: ${{   .RAILWAY_TOKEN }}
+          REPOSITORY_SECRET: ${{ secrets.REPOSITORY_SECRET }}
+          REPOSITORY_VARIABLE: ${{ env.REPOSITORY_VARIABLE }}
+          ENVIRONMENT_SECRET: ${{ github.env.ENVIRONMENT_SECRET }}
+          ENVIRONMENT_VARIABLE: ${{ github.env.ENVIRONMENT_VARIABLE }}
+          RAILWAY_TOKEN: ${{ env.RAILWAY_TOKEN }}
+        #   RAILWAY_TOKEN: ${{ github.env.secrets.RAILWAY_TOKEN}}
         #   RAILWAY_TOKEN: ${{ github.env.RAILWAY_TOKEN }}
         #   RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        #   REPOSITORY_VARIABLE: ${{ env.REPOSITORY_VARIABLE }}
-        #   ENVIRONMENT_SECRET: ${{ github.env.ENVIRONMENT_SECRET }}
-        #   ENVIRONMENT_VARIABLE: ${{ github.env.ENVIRONMENT_VARIABLE }}
