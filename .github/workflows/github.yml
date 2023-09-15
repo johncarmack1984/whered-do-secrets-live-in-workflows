@@ -1,0 +1,17 @@
+on:
+  push:
+    branches: [main, staging]
+
+jobs:
+  show-secrets:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [staging, production]
+    steps:
+      - name: Show secrets
+        run: |
+          echo ${{ secrets.REPOSITORY_SECRET }}
+          echo ${{ github.repository.REPOSITORY_VARIABLE }}
+          echo ${{ github.env.ENVIRONMENT_SECRET }}
+          echo ${{ github.env.ENVIRONMENT_VARIABLE }}
