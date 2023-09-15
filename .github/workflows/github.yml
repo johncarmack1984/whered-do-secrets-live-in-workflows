@@ -13,8 +13,6 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-      - name: Install Railway
-        run:
       - name: Deploy
         run: |
           bun i -g @railway/cli
