@@ -17,9 +17,13 @@ jobs:
       - name: Deploy
         run: railway up -e ${{ matrix.environment }}
         env:
+          github_env: ${{ matrix.environment }}
           REPOSITORY_SECRET: ${{ secrets.REPOSITORY_SECRET }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPOSITORY_VARIABLE: ${{ env.REPOSITORY_VARIABLE }}
-          ENVIRONMENT_SECRET: ${{ github.env.ENVIRONMENT_SECRET }}
-          ENVIRONMENT_VARIABLE: ${{ github.env.ENVIRONMENT_VARIABLE }}
-          RAILWAY_TOKEN: ${{ github.env.RAILWAY_TOKEN }}
+          RAILWAY_TOKEN: ${{ github.env.secrets.RAILWAY_TOKEN}}
+        #   RAILWAY_TOKEN: ${{   .RAILWAY_TOKEN }}
+        #   RAILWAY_TOKEN: ${{ github.env.RAILWAY_TOKEN }}
+        #   RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        #   REPOSITORY_VARIABLE: ${{ env.REPOSITORY_VARIABLE }}
+        #   ENVIRONMENT_SECRET: ${{ github.env.ENVIRONMENT_SECRET }}
+        #   ENVIRONMENT_VARIABLE: ${{ github.env.ENVIRONMENT_VARIABLE }}
